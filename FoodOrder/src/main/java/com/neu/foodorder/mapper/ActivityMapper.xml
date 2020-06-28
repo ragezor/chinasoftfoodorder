@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC    
+    "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.foodorder.mapper.ActivityMapper">
+	  <!-- 修改活动信息 -->
+    <update id="update" parameterType="com.neu.foodorder.entity.Activity">
+ 		update activity
+ 	<set>
+ 		<if test="acid!=null and acid!=''">
+ 			acid=#{acid},
+ 		</if>
+ 		<if test="acname!=null and acname!=''">
+ 			acname=#{acname},
+ 		</if>
+ 		<if test="acdesc!=null and acdesc!='' ">
+ 			acdesc=#{acdesc},
+ 		</if>
+ 		<if test="aclev!=null and aclev!='' ">
+ 			aclev=#{aclev},
+ 		</if>
+ 		<if test="acstart!=null and acstart!='' ">
+ 			acstart=#{acstart},
+ 		</if>
+ 		<if test="acend!=null and acend!='' ">
+ 			acend=#{acend},
+ 		</if>
+ 	</set>
+ 	where acid=#{acid}
+ 	</update>
+ 	
+</mapper>

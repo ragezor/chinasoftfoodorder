@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC    
+    "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.foodorder.mapper.EvaluateMapper">
+	<!-- 添加评价 -->
+	<insert id="addEvaluate" useGeneratedKeys="true" keyProperty="eid" parameterType="com.neu.foodorder.entity.Evaluate">
+		insert into evaluate values(null,#{foodid},#{userid},#{edesc},#{elev},now())
+	</insert>
+
+	<!-- 修改评价 -->
+	 <update id="updateEva" parameterType="com.neu.foodorder.entity.Evaluate">
+ 		update evaluate
+ 	<set>
+ 		<if test="elev!=null and elev!=''">
+ 			elev=#{elev},
+ 		</if>
+ 		<if test="edesc!=null and edesc!=''">
+ 			edesc=#{edesc},
+ 		</if>
+ 	</set>
+ 	where eid=#{eid}
+ 	</update>
+ 	
+ 	<!-- 万能查询 -->
+ 	<select id="selectByVar" parameterType="com.neu.foodorder.entity.Evaluate" resultType="com.neu.foodorder.entity.Evaluate">
+ 		select * from evaluate
+ 		<where>
+ 			<if test="eid!=null">
+ 				and eid=#{eid}
+ 			</if>
+ 			<if test="elev!=null">
+ 				and elev=#{elev}
+ 			</if>
+ 			<if test="foodid!=null">
+ 				and foodid=#{foodid}
+ 			</if>
+ 			<if test="userid!=null">
+ 				and userid=#{userid}
+ 			</if>
+ 			<if test="etime!=null and etime!=''">
+ 				and instr(etime,#{etime})>0
+ 			</if>
+ 		</where>
+ 	</select>
+</mapper>

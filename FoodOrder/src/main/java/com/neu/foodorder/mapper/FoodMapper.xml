@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.foodorder.mapper.FoodMapper">
+	<!--食品添加-->
+    <insert id="add" >
+          insert into food values(null,#{foodname},#{pic},#{price},#{ftid},#{desc},now(),0)
+    </insert>
+    
+    <!-- 修改食品种类信息 -->
+    <update id="updateFoodType" parameterType="com.neu.foodorder.entity.FoodType">
+ 		update foodtype 
+ 	<set>
+ 		<if test="ftname!=null and ftname!=''">
+ 			ftname=#{ftname},
+ 		</if>
+ 		<if test="ftpic!=null and ftpic!=''">
+ 			ftpic=#{ftpic},
+ 		</if>
+ 		<if test="ftdesc!=null and ftdesc!='' ">
+ 			ftdesc=#{ftdesc},
+ 		</if>
+ 	</set>
+ 	where ftid=#{ftid}
+ 	</update>
+ 	
+ 	<!-- 修改食品信息 -->
+ 	<update id="updateFood" parameterType="com.neu.foodorder.entity.Food">
+ 		update food
+ 	<set>
+ 		<if test="foodname!=null and foodname!=''">
+ 			foodname=#{foodname},
+ 		</if>
+ 		<if test="pic!=null and pic!=''">
+ 			pic=#{pic},
+ 		</if>
+ 		<if test="price!=null">
+ 			price=#{price},
+ 		</if>
+ 		<if test="desc!=null and desc!=''">
+ 			desc=#{desc},
+ 		</if>
+ 		<if test="ftid!=null">
+ 			ftid=#{ftid},
+ 		</if>
+ 		<if test="foodstate!=null">
+ 			foodstate=#{foodstate},
+ 		</if>
+ 	</set>
+ 	where foodid=#{foodid}
+ 	</update>
+ 	
+ 	<!-- 万能查找 即根据对象进行查找 -->
+ 	<select id="selectFoodVar" parameterType="com.neu.foodorder.entity.Food" resultType="com.neu.foodorder.entity.Food">
+ 		select * from food
+ 		<where>
+ 			<if test="foodid!=null">
+ 				and foodid=#{foodid}
+ 			</if>
+ 			<if test="foodname!=null and foodname!=''">
+ 				and instr(foodname,#{foodname})>0
+ 			</if>
+ 			<if test="ftid!=null">
+ 				and ftid=#{ftid}
+ 			</if>
+ 			<if test="foodstate!=null">
+ 				and foodstate=#{foodstate}
+ 			</if>
+ 		</where>
+ 	</select>
+ 	
+ 	
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC    
+    "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neu.foodorder.mapper.OrderMapper">
+	<!-- 添加订单 -->
+	<insert id="addOrder" useGeneratedKeys="true" keyProperty="orderid" parameterType="com.neu.foodorder.entity.Order">
+		insert into `order` values(null,#{userid},now(),#{orderaddress},#{phone},#{orderprice},#{remark},0,0)
+	</insert>
+	
+	<!-- 添加订单明细 -->
+	<insert id="addOrderItem" useGeneratedKeys="true" keyProperty="itemid" parameterType="com.neu.foodorder.entity.OrderItem">
+		insert into orderitem values(null,#{orderid},#{foodid},#{foodnum})
+	</insert>
+
+	<!-- 修改订单信息 -->
+	 <update id="updateOrder" parameterType="com.neu.foodorder.entity.Order">
+ 		update `order`
+ 	<set>
+ 		<if test="orderaddress!=null and orderaddress!=''">
+ 			orderaddress=#{orderaddress},
+ 		</if>
+ 		<if test="phone!=null and phone!=''">
+ 			phone=#{phone},
+ 		</if>
+ 		<if test="remark!=null and remark!=''">
+ 			remark=#{remark},
+ 		</if>
+ 		<if test="orderstate!=null">
+ 			orderstate=#{orderstate},
+ 		</if>
+ 		<if test="ordereval!=null">
+ 			ordereval=#{ordereval},
+ 		</if>
+ 	</set>
+ 	where orderid=#{orderid}
+ 	</update>
+ 	
+ 	<!-- 万能查询 -->
+ 	<select id="selectAll" parameterType="com.neu.foodorder.entity.Order" resultMap="selectAllMap">
+ 		select * from `order`
+ 		<where>
+ 			<if test="orderid!=null">
+ 				and orderid=#{orderid}
+ 			</if>
+ 			<if test="userid!=null">
+ 				and userid=#{userid}
+ 			</if>
+ 			<if test="ordertime!=null and ordertime!=''">
+ 				and instr(ordertime,#{ordertime})>0
+ 			</if>
+ 			<if test="orderstate!=null">
+ 				and orderstate=#{orderstate}
+ 			</if>
+ 			<if test="ordereval!=null">
+ 				and ordereval=#{ordereval}
+ 			</if>
+ 		</where>
+ 	</select>
+ 	
+ 	<!-- 一对多关联查询 -->
+ 	<resultMap type="com.neu.foodorder.entity.Order" id="selectAllMap">
+    	<collection property="items" column="orderid" select="com.neu.foodorder.mapper.OrderMapper.selectItemsByOrderId"></collection>
+    </resultMap>
+</mapper>
