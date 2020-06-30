@@ -10,5 +10,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface ActivityService {
-	public Activity update(Activity activity);//修改食品种类
+	public Activity updateReduce(Activity activity);//修改食品种类(reduce
+	public Activity updateDiscount(Activity activity);//修改食品种类(discount
 }

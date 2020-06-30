@@ -3,8 +3,8 @@
     "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neu.foodorder.mapper.ActivityMapper">
-	  <!-- 修改活动信息 -->
-    <update id="update" parameterType="com.neu.foodorder.entity.Activity">
+	  <!-- 修改活动信息（更新reduce） -->
+    <update id="updateReduce" parameterType="com.neu.foodorder.entity.Activity">
  		update activity
  	<set>
  		<if test="acid!=null and acid!=''">
@@ -16,6 +16,12 @@
  		<if test="acdesc!=null and acdesc!='' ">
  			acdesc=#{acdesc},
  		</if>
+ 		<if test="actype!=null and actype!='' ">
+ 			actype=#{actype},
+ 		</if>
+ 		<if test="count!=null and count!='' ">
+ 			count=#{count},
+ 		</if>
  		<if test="aclev!=null and aclev!='' ">
  			aclev=#{aclev},
  		</if>
@@ -25,6 +31,52 @@
  		<if test="acend!=null and acend!='' ">
  			acend=#{acend},
  		</if>
+ 		<if test="true ">
+ 		reduce=#{reduce},
+ 		 discount=Null,
+ 		</if>
+ 		
+ 	</set>
+ 	where acid=#{acid}
+ 	</update>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	 <!-- 修改活动信息（更新discount） -->
+    <update id="updateDiscount" parameterType="com.neu.foodorder.entity.Activity">
+ 		update activity
+ 	<set>
+ 		<if test="acid!=null and acid!=''">
+ 			acid=#{acid},
+ 		</if>
+ 		<if test="acname!=null and acname!=''">
+ 			acname=#{acname},
+ 		</if>
+ 		<if test="acdesc!=null and acdesc!='' ">
+ 			acdesc=#{acdesc},
+ 		</if>
+ 		<if test="actype!=null and actype!='' ">
+ 			actype=#{actype},
+ 		</if>
+ 		<if test="count!=null and count!='' ">
+ 			count=#{count},
+ 		</if>
+ 		<if test="aclev!=null and aclev!='' ">
+ 			aclev=#{aclev},
+ 		</if>
+ 		<if test="acstart!=null and acstart!='' ">
+ 			acstart=#{acstart},
+ 		</if>
+ 		<if test="acend!=null and acend!='' ">
+ 			acend=#{acend},
+ 		</if>
+ 		<if test="true ">
+ 		 discount=#{discount},
+ 		 reduce=Null,
+ 		</if>
+ 		
  	</set>
  	where acid=#{acid}
  	</update>

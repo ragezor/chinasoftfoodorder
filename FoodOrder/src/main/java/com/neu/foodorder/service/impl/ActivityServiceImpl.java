@@ -19,8 +19,13 @@ public class ActivityServiceImpl implements ActivityService{
 	private ActivityMapper mapper;
 
 	@Override
-	public Activity update(Activity activity) {//修改食品种类信息
-		int i=mapper.update(activity);
+	public Activity updateReduce(Activity activity) {//修改食品种类信息(reduce
+		int i=mapper.updateReduce(activity);
+		return i==1?mapper.selectActivityById(activity.getAcid()):null;
+	}
+	@Override
+	public Activity updateDiscount(Activity activity) {//修改食品种类信息(discount
+		int i=mapper.updateDiscount(activity);
 		return i==1?mapper.selectActivityById(activity.getAcid()):null;
 	}
 

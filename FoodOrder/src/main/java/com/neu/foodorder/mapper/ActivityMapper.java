@@ -18,5 +18,7 @@ public interface ActivityMapper {
 	@Select("select * from activity where acid=#{acid}")
 	public Activity selectActivityById(int acid);
 	//修改活动信息
-		public int update(Activity activity);
+		public int updateReduce(Activity activity);
+		//修改活动信息
+		public int updateDiscount(Activity activity);		
 }
